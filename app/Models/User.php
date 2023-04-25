@@ -12,7 +12,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'api_key'
+        'api_key',
     ];
 
     /**
@@ -59,9 +61,10 @@ class User extends Authenticatable
 
     public function handleTokens(): string
     {
-        if($this->tokens->count() > 0){
+        if ($this->tokens->count() > 0) {
             $this->tokens()->delete();
         }
+
         return $this->createToken($this->email)->plainTextToken;
     }
 }

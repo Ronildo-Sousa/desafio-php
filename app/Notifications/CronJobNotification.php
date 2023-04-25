@@ -41,7 +41,7 @@ class CronJobNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->line($this->message)
             ->lineIf(!empty($this->errorMessage), $this->errorMessage);
     }
