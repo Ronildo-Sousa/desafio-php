@@ -10,6 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $primaryKey = 'code';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -35,10 +36,10 @@ class Product extends Model
         'nutriscore_score',
         'nutriscore_grade',
         'main_category',
-        'image_url'
+        'image_url',
     ];
 
     protected $casts = [
-        'imported_t' => 'datetime'
+        'imported_t' => 'datetime',
     ];
 }

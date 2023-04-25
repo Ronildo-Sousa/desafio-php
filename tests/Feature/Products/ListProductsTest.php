@@ -18,7 +18,7 @@ class ListProductsTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->getJson(route('api.products.index', [
-            'api_key' => $user->api_key
+            'api_key' => $user->api_key,
         ]));
 
         $response->assertStatus(Response::HTTP_OK)
@@ -34,8 +34,8 @@ class ListProductsTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->getJson(route('api.products.index', [
-            'api_key' => $user->api_key,
-            'per-page' => 2
+            'api_key'  => $user->api_key,
+            'per-page' => 2,
         ]));
 
         $response->assertStatus(Response::HTTP_OK)

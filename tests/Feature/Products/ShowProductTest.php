@@ -2,8 +2,7 @@
 
 namespace Tests\Feature\Products;
 
-use App\Models\Product;
-use App\Models\User;
+use App\Models\{Product, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -15,12 +14,12 @@ class ShowProductTest extends TestCase
     /** @test */
     public function it_shows_the_product_information_based_in_a_product_code()
     {
-        $user = User::factory()->create();
+        $user    = User::factory()->create();
         $product = Product::factory()->create();
 
         $response = $this->getJson(route('api.products.show', [
             'product' => $product->code,
-            'api_key' => $user->api_key
+            'api_key' => $user->api_key,
         ]));
 
         $response->assertStatus(Response::HTTP_OK)
