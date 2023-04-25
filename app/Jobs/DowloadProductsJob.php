@@ -2,19 +2,18 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Bus\{Batchable, Queueable};
+use Illuminate\Contracts\Queue\{ShouldBeUnique, ShouldQueue};
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-
-use function PHPUnit\Framework\directoryExists;
+use Illuminate\Queue\{InteractsWithQueue, SerializesModels};
 
 class DowloadProductsJob implements ShouldQueue
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
@@ -45,9 +44,10 @@ class DowloadProductsJob implements ShouldQueue
             unlink($this->fileName);
         }
 
-        $data = '';
-        $handle = fopen($this->streamPath, 'rb');
+        $data     = '';
+        $handle   = fopen($this->streamPath, 'rb');
         $filePath = fopen($this->fileName, 'w');
+
         if ($handle === false) {
             return false;
         }
@@ -57,6 +57,7 @@ class DowloadProductsJob implements ShouldQueue
         }
         $result = fclose($handle);
         fclose($filePath);
+
         return $result;
     }
 }

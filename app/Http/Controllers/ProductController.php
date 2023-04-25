@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ProductStatus;
-use App\Http\Requests\ListProductsRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\{ListProductsRequest, UpdateProductRequest};
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +12,7 @@ class ProductController extends Controller
 {
     public function index(ListProductsRequest $request): JsonResponse
     {
-        $requestData = $request->validated();
+        $requestData     = $request->validated();
         $productsPerPage = $requestData['per-page'] ?? 6;
 
         $products = Product::query()
@@ -25,9 +24,11 @@ class ProductController extends Controller
     public function show(int $code): JsonResponse
     {
         $product = Product::query()->find($code);
+
         if (!$product) {
             return response()->json(['message' => 'product not found'], Response::HTTP_NOT_FOUND);
         }
+
         return response()->json(['product' => $product], Response::HTTP_OK);
     }
 

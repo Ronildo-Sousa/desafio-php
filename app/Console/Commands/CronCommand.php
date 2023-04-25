@@ -28,6 +28,6 @@ class CronCommand extends Command
      */
     public function handle()
     {
-        (new ImportFromOpenFoodFacts)->run();
+        (new ImportFromOpenFoodFacts())->run();
     }
 }
