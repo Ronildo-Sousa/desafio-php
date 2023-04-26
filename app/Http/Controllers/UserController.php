@@ -22,17 +22,17 @@ class UserController extends Controller
         return UserResource::collection(User::query()->paginate($per_page));
     }
 
-    public function show($id): JsonResponse
+    public function show(User $user): UserResource
+    {
+        return new UserResource($user);
+    }
+
+    public function update(Request $request, User $user)
     {
         //
     }
 
-    public function update(Request $request, $id): JsonResponse
-    {
-        //
-    }
-
-    public function destroy($id): JsonResponse
+    public function destroy(User $user)
     {
         //
     }

@@ -4,13 +4,13 @@ namespace Tests\Feature\Products;
 
 use App\Enums\ProductStatus;
 use App\Models\{Product, User};
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class UpdateProductTest extends TestCase
 {
-    use RefreshDatabase;
+    use LazilyRefreshDatabase;
 
     /** @test */
     public function it_should_be_able_to_edit_a_product()
