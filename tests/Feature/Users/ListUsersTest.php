@@ -4,7 +4,11 @@ namespace Tests\Feature\Users;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\{RefreshDatabase, WithFaker};
+
+use function PHPUnit\Framework\assertEquals;
+
 use Symfony\Component\HttpFoundation\Response;
+
 use Tests\TestCase;
 
 class ListUsersTest extends TestCase
@@ -41,5 +45,25 @@ class ListUsersTest extends TestCase
             ]));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function it_should_be_able_to_change_items_per_page()
+    {
+        User::factory(10)->create();
+
+        $response = $this->actingAs($this->admin)
+            ->getJson(route('api.users.index', [
+                'api_key'  => $this->admin->api_key,
+                'per_page' => 5,
+            ]));
+        $data       = $response->collect();
+        $per_page   = $data->get('meta')['per_page'];
+        $itemsCount = count($data->get('data'));
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        assertEquals(5, $per_page);
+        assertEquals(5, $itemsCount);
     }
 }
