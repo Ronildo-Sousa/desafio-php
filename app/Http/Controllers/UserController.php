@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ListUserRequest;
+use App\Http\Requests\{ListUserRequest, UpdateUserRequest};
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\{Request};
+use Illuminate\Http\{JsonResponse};
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -28,12 +28,14 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
 
