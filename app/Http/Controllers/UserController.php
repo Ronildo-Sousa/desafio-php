@@ -6,7 +6,8 @@ use App\Http\Requests\ListUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\{JsonResponse, Request};
+use Illuminate\Http\{Request};
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -34,6 +35,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
