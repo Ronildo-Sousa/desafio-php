@@ -3,14 +3,11 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ShowUserTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     private readonly User $admin;
 
     protected function setUp(): void

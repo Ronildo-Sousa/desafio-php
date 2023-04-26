@@ -4,13 +4,10 @@ namespace Tests\Feature\Actions\Products;
 
 use App\Actions\Products\CreateProduct;
 use App\Models\Product;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class CreateProductActionTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     /** @test */
     public function it_should_create_a_product_in_database()
     {

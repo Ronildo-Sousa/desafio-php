@@ -4,14 +4,11 @@ namespace Tests\Feature\Products;
 
 use App\Enums\ProductStatus;
 use App\Models\{Product, User};
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class DeleteProductTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     /** @test */
     public function it_should_change_the_product_status_to_trash()
     {

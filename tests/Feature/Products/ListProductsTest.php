@@ -3,14 +3,11 @@
 namespace Tests\Feature\Products;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ListProductsTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     /** @test */
     public function it_should_show_a_list_of_products()
     {

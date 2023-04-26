@@ -3,7 +3,6 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 use function PHPUnit\Framework\assertEquals;
 
@@ -13,8 +12,6 @@ use Tests\TestCase;
 
 class ListUsersTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     private readonly User $admin;
 
     protected function setUp(): void

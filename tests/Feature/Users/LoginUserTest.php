@@ -3,14 +3,11 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class LoginUserTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     /** @test */
     public function it_should_be_able_to_login()
     {
