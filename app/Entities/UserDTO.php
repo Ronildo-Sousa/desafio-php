@@ -13,7 +13,6 @@ class UserDTO extends Data
         public string $email,
         public string $password,
         public bool|Optional $is_admin,
-        public string|Optional $api_key,
         public string|Optional $token,
     ) {
     }

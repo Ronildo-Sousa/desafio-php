@@ -19,7 +19,7 @@ class createUserTest extends TestCase
 
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure([
-                'user' => ['api_key', 'token'],
+                'user' => ['token'],
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -37,12 +37,11 @@ class createUserTest extends TestCase
                 'name'     => 'user name',
                 'email'    => 'user@email.com',
                 'password' => 'password',
-                'api_key'  => $user->api_key,
             ]));
 
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure([
-                'user' => ['api_key', 'token'],
+                'user' => ['token'],
             ]);
 
         $this->assertDatabaseHas('users', [

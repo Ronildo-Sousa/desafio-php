@@ -4,12 +4,8 @@ namespace App\Actions\Products;
 
 use App\Actions\ProcessJobs;
 use App\Jobs\{DowloadProductsJob, ImportProductsJob};
-use App\Models\User;
-use App\Notifications\CronJobNotification;
-use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\{Bus, Http};
 use Illuminate\Support\Str;
-use Throwable;
 
 class ImportFromOpenFoodFacts
 {

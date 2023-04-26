@@ -20,7 +20,7 @@ class LoginUserTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
-                'user' => ['api_key', 'token'],
+                'user' => ['token'],
             ]);
     }
 
