@@ -14,13 +14,16 @@ class ShowProductTest extends TestCase
         $user    = User::factory()->create();
         $product = Product::factory()->create();
 
-        $response = $this->getJson(route('api.products.show', [
-            'product' => $product->code,
-            'api_key' => $user->api_key,
-        ]));
+        $response = $this->actingAs($user)
+            ->getJson(route('api.products.show', [
+                'product' => $product->code,
+            ]));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['product']);
+            ->assertJsonStructure(['product'])
+            ->assertSee($product->code)
+            ->assertSee($product->status)
+            ->assertSee($product->name);
     }
 
     /** @test */
@@ -28,10 +31,10 @@ class ShowProductTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->getJson(route('api.products.show', [
-            'api_key' => $user->api_key,
-            'product' => 0,
-        ]));
+        $response = $this->actingAs($user)
+            ->getJson(route('api.products.show', [
+                'product' => 0,
+            ]));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
