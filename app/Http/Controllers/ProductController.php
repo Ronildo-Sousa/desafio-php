@@ -39,6 +39,7 @@ class ProductController extends Controller
         if (!$product) {
             return response()->json(['message' => 'product not found'], Response::HTTP_NOT_FOUND);
         }
+        $this->authorize('update', $product);
 
         $product->update($request->validated());
 
