@@ -3,14 +3,11 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\{RefreshDatabase, WithFaker};
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class createUserTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_should_be_able_to_create_an_account()
     {

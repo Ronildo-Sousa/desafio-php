@@ -40,6 +40,8 @@ class ProductController extends Controller
             return response()->json(['message' => 'product not found'], Response::HTTP_NOT_FOUND);
         }
 
+        $this->authorize('update', $product);
+
         $product->update($request->validated());
 
         return response()->json(['product' => $product], Response::HTTP_OK);
@@ -52,6 +54,8 @@ class ProductController extends Controller
         if (!$product) {
             return response()->json(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
         }
+
+        $this->authorize('delete', $product);
 
         $product->update(['status' => ProductStatus::trash->value]);
 
