@@ -24,13 +24,35 @@ Já a REST API tinha como objetivo desenvolver um CRUD com os produtos importado
 ### O sistema de CRON
 
 O sistema de cron desenvolvido funciona da seguinte forma:
-- A sistema acessa a API do Open Food e recebe uma lista de produtos que deve importar.
+- O sistema acessa a API do Open Food e recebe uma lista de produtos que deve importar.
 - A partir daí este processamento é enviado para uma fila, onde os produtos são enviados para a base de dados, como este processamento é assincrono o usuário não tem que esperar acabar e pode continuar usando os sistema.
+- Quando finalizado o processo os administradores são notificados por email, caso ocorra algum erro eles também são notificados.
 - Como solicitado no desafio o sistema é executado uma vez ao dia em um horário definido pelo usuário através da variável de ambiente `CRON_RUN_AT`.
-- Também é possível executar o cron através do terminal utilizando o comando `sail artisan cron:work`
+- Também é possível executar o cron através do terminal utilizando o comando `./vendor/bin/sail artisan cron:work`.
 
+### A REST API
 
-## Instalação e configuração da API
+`A documentação pode ser acessada` [aqui](https://documenter.getpostman.com/view/15881488/2s8ZDYX1ok)
+
+Atualmente o sistema possui 2 endpoints principais, um endpoint de usuários e outro de produtos, os dois possuem as funcionalidades básicas de um CRUD. Para estes endpoints desenvolvi também testes automatizados utilizando phpunit.
+
+Endpoints relacionados a usuários:
+Método   | URI | Descrição
+--------- | ------ | ---------
+GET | /api/users | retorna todos os usuários da base de dados
+GET | /api/users/{user} | retorna um usuário da base de dados  
+PUT | /api/users/{user} | atualiza um usuário da base de dados
+DELETE | /api/users/{user} | apaga um usuário da base de dados
+
+Endpoints relacionados a produtos:
+Método   | URI | Descrição
+--------- | ------ | ---------
+GET | /api/products | retorna todos os produtos da base de dados
+GET | /api/products/{user} | retorna um produto da base de dados  
+PUT | /api/products/{user} | atualiza um produto da base de dados
+DELETE | /api/products/{user} | apaga um produto da base de dados
+
+## Instalação e configuração
 
 Faça o clone do respositório
 ```bash
@@ -66,14 +88,3 @@ Execute as migrations e seeders
 ```bash
 ./vendor/bin/sail artisan migrate --seed
 ```
-
-## Endpoints
-
-Acesse a [documentação](https://documenter.getpostman.com/view/15881488/2s8ZDYX1ok) para mais detalhes.
-
-Método   | URI
---------- | ------
-GET | /api/products
-GET | /api/products/{code}
-PUT | /api/products/{code}
-DELETE | /api/products/{code}
