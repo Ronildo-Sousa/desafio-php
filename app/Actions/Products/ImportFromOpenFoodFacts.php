@@ -2,6 +2,7 @@
 
 namespace App\Actions\Products;
 
+use App\Actions\ProcessJobs;
 use App\Jobs\{DowloadProductsJob, ImportProductsJob};
 use App\Models\User;
 use App\Notifications\CronJobNotification;
@@ -30,26 +31,7 @@ class ImportFromOpenFoodFacts
             ];
         }
 
-        Bus::batch($jobs)->name("Import-products")
-            ->finally(function (Batch $batch) {
-                User::admin()
-                    ->each(
-                        fn ($user) => $user->notify(
-                            new CronJobNotification('Cron Job ' . $batch->name . 'executed successfully')
-                        )
-                    );
-            })
-            ->catch(function (Batch $batch, Throwable $e) {
-                User::admin()
-                    ->each(
-                        fn ($user) => $user->notify(
-                            new CronJobNotification(
-                                'Error on Cron Job ' . $batch->name,
-                                $e->getMessage()
-                            )
-                        )
-                    );
-            })->dispatch();
+        ProcessJobs::handle($jobs, "Import-products");
     }
 
     private function getFileNames()
