@@ -29,4 +29,17 @@ class ListUsersTest extends TestCase
             ->assertSee('Next')
             ->assertSee('Previous');
     }
+
+    /** @test */
+    public function only_admin_should_see_a_list_of_users()
+    {
+        $nonAdmin = User::factory()->create(['is_admin' => false]);
+
+        $response = $this->actingAs($nonAdmin)
+            ->getJson(route('api.users.index', [
+                'api_key' => $nonAdmin->api_key,
+            ]));
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
 }

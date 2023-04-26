@@ -10,6 +10,11 @@ use Illuminate\Http\{JsonResponse, Request};
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     public function index(ListUserRequest $request): JsonResource
     {
         $per_page = $request->get('per_page') ?? 10;
